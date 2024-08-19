@@ -3,6 +3,7 @@
 
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>登入</title>
 </head>
 
@@ -11,19 +12,28 @@
 		<a href="./">NoteBook</a> <sub>登入</sub>
 	</h2>
 	<hr>
-	<a href="">登入</a> |
-	<a>註冊</a> |
+	<a href="login.html">登入</a> |
+	<a href="register.html">註冊</a> |
 	<hr>
-	<form>
+	<form action="" method="get">
 		<p>
-			<label>帳號:</label>
-			<input type="text" required>
+			<label for="id">帳號:</label>
+			<input type="text" name="id" id="id" placeholder="請輸入ROC ID/Email/手機號碼">
 		</p>
 		<p>
-			<label>密碼:</label>
-			<input type="password" required>
+			<label for="password">密碼:</label>
+			<input type="password" name="password" id="password"  required placeholder="請輸入密碼">
+			<input type="checkbox"><label>顯示密碼</label>
 		</p>
-		<input type="button" value="確定">
+		<p>
+			<label for="captcha">驗證碼:</label>
+			<input type="text" name="captcha" id="captcha"  required placeholder="請輸入驗證碼">
+		<div>
+			<br>
+			<img src="images/captcha.png" alt="">
+		</div>
+		</p>
+		<input type="submit" value="確定">
 	</form>
 </body>
 
