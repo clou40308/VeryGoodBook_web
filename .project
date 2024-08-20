@@ -3,6 +3,7 @@
 	<name>VeryGoodBook_web</name>
 	<comment></comment>
 	<projects>
+		<project>VeryGoodBook_lib</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
