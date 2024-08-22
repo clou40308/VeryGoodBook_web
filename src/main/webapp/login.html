@@ -11,6 +11,16 @@
 			// var captchaImg = document.getElementById("captchaImg");
 			captchaImg.src = "images/captcha.png?renew=" + new Date();
 		}
+		function displayPwd(){
+			// alert(theCheckbox.checked);
+			if(theCheckbox.checked){
+				//顯示密碼
+				thePassword.type="text";
+			}else{
+				//不顯示密碼
+				thePassword.type="password";
+			}
+		}
 	</script>
 </head>
 
@@ -29,8 +39,8 @@
 		</p>
 		<p>
 			<label for="password">密碼:</label>
-			<input type="password" name="password" id="password" required placeholder="請輸入密碼">
-			<input type="checkbox"><label>顯示密碼</label>
+			<input type="password" name="password" id="thePassword" required placeholder="請輸入密碼">
+			<input type="checkbox" onchange="displayPwd()"  id="theCheckbox"><label>顯示密碼</label>
 		</p>
 		<p>
 			<label for="captcha">驗證碼:</label>
