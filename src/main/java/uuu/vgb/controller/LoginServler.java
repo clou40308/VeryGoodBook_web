@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -61,28 +62,19 @@ public class LoginServler extends HttpServlet {
 			try {
 				c = service.login(id, password);
 
-				// 3.1顯示成功html
-				response.setContentType("text/html");
-				response.setCharacterEncoding("utf-8");
-				try (PrintWriter out = response.getWriter();) {
-					out.println("<!DOCTYPE html>");
-					out.println("<html>");
-					out.println("<head>");
-					out.println("<title>登入成功</title>");
-					out.println("</head>");
-					out.println("<body>");
-					out.printf("  <h2>登入成功，%s您好!</h2>\n",c.getName());
-					out.println("</body>");
-					out.println("</html>");
-				}
+				// 3.1 內部轉交(forward)成功html
+				request.setAttribute("member", c);
+				RequestDispatcher dispatcher = request.getRequestDispatcher("login_ok.jsp");
+				dispatcher.forward(request, response);
 				return;
-			}catch(LoginFailedException e){
+
+			} catch (LoginFailedException e) {
 				errors.add(e.getMessage());
 			} catch (VGBException e) {
 				this.log(e.getMessage(), e);// for admoin
-				errors.add(e.getMessage()+",請聯絡Admin");  //for users
-			}catch(Exception e) { //RuntimeException
-				this.log("會員登入時，系統發生錯誤",e); 	//for admin
+				errors.add(e.getMessage() + ",請聯絡Admin"); // for users
+			} catch (Exception e) { // RuntimeException
+				this.log("會員登入時，系統發生錯誤", e); // for admin
 			}
 		}
 

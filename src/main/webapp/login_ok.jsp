@@ -1,0 +1,34 @@
+<%@page import="uuu.vgb.entity.Customer"%>
+<%@page pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登入成功</title>
+    <meta http-equiv="refresh" content="10;url=index.html">
+</head>
+
+<body>
+    <h2>
+        <a href="index.html">NoteBook</a> <sub>登入成功</sub>
+    </h2>
+    <hr>
+    <a href="login.html">登入</a> |
+    <a href="register.html">註冊</a> |
+    <hr>
+    <p>
+        <%
+        Customer member = (Customer)request.getAttribute("member");
+        out.println(member!=null?member.getName():"XXX");
+        %>
+        ，您好!10秒後自動轉址至<a href="index.html">首頁</a>
+    </p>
+
+    <!-- <script>
+        document.write(new Date());
+    </script> -->
+</body>
+
+</html>
