@@ -7,6 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>註冊成功</title>
+    <link rel="stylesheet" href="style/vgb.css"  type="text/css">
     <meta http-equiv="refresh" content="10;url=index.html">
 </head>
 
@@ -21,9 +22,9 @@
     <p>
         <%
         Customer member = (Customer)request.getAttribute("member");
-        out.println(member!=null?member.getName():"XXX");
+        //out.println(member!=null?member.getName():"XXX");
         %>
-        ，您好!10秒後自動轉址至<a href="index.html">首頁</a>
+        <%=member!=null?member.getName():"XXX"%>，您好!10秒後自動轉址至<a href="index.html">首頁</a>
     </p>
 
     <!-- <script>
