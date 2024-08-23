@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -97,21 +98,10 @@ public class RegisterServlet extends HttpServlet {
 				
 				CustomerService service = new CustomerService();
 				service.register(c);
-				// 3.1顯示成功html
-				response.setContentType("text/html");
-				response.setCharacterEncoding("utf-8");
-				try (PrintWriter out = response.getWriter();) {
-					out.println("<!DOCTYPE html>");
-					out.println("<html>");
-					out.println("<head>");
-					out.println("<title>註冊成功</title>");
-					out.println("</head>");
-					out.println("<body>");
-					out.printf("  <h2>註冊成功，%s您好!</h2>\n",c.getName());
-					out.println("</body>");
-					out.println("</html>");
-				}
-
+				// 3.1 內部轉交(forward)成功 register_ok.jsp
+				request.setAttribute("member", c);
+				RequestDispatcher dispatcher = request.getRequestDispatcher("register_ok.jsp");
+				dispatcher.forward(request, response);
 				return;
 			} catch (VGBDataInvalidException e) {
 				errors.add(e.getMessage());
@@ -124,20 +114,11 @@ public class RegisterServlet extends HttpServlet {
 			}
 		}
 
-		// 3.2顯示失敗html
-		response.setContentType("text/html");
-		response.setCharacterEncoding("utf-8");
-		try (PrintWriter out = response.getWriter();) {
-			out.println("<!DOCTYPE html>");
-			out.println("<html>");
-			out.println("<head>");
-			out.println("<title>註冊失敗</title>");
-			out.println("</head>");
-			out.println("<body>");
-			out.printf("  <h2>%s</h2>\n", errors);
-			out.println("</body>");
-			out.println("</html>");
-		}
+		// 3.2內部轉交(forward)失敗的register_ok.jsp
+		request.setAttribute("errors", errors);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("register.jsp");
+		dispatcher.forward(request, response);
+		return;
 	}
 
 }

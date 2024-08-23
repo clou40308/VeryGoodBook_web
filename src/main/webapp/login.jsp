@@ -1,4 +1,6 @@
+<!-- <%@page pageEncoding="UTF-8"%> -->
 <!DOCTYPE html>
+<%@page import="java.util.List"%>
 <html>
 
 <head>
@@ -26,12 +28,20 @@
 
 <body>
 	<h2>
-		<a href="./">NoteBook</a> <sub>登入</sub>
+		<a href="index.html">NoteBook</a> <sub>登入</sub>
 	</h2>
 	<hr>
-	<a href="login.html">登入</a> |
-	<a href="register.html">註冊</a> |
+	<a href="login.jsp">登入</a> |
+	<a href="register.jsp">註冊</a> |
 	<hr>
+	<%
+		List<String> errors = (List<String>)request.getAttribute("errors");
+	%>
+	<div id="theErrorsDiv" style="color: red;">
+	<%
+		out.print(errors!=null?errors:"");
+	%>
+	</div>
 	<form action="login.do" method="post">
 		<p>
 			<label for="id">帳號:</label>

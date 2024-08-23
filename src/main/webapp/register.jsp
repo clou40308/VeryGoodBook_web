@@ -1,3 +1,5 @@
+<%@page import="java.util.List"%>
+<%@page pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 
@@ -19,8 +21,8 @@
 		<a href="./">NoteBook</a> <sub>註冊</sub>
 	</h2>
 	<hr>
-	<a href="login.html">登入</a> |
-	<a href="register.html">註冊</a> |
+	<a href="login.jsp">登入</a> |
+	<a href="register.jsp">註冊</a> |
 	<hr>
 	<form action="register.do" method="post">
 		<p>
@@ -78,8 +80,17 @@
 			<input type="text" name="captcha" id="captcha"  required placeholder="請輸入驗證碼">
 			<img src="images/captcha.png" alt="" title="點選即可更新驗證碼" id="captchaImg" onclick="refreshCaptcha()">
 		</p>
+		<%
+		List<String> errors = (List<String>)request.getAttribute("errors");
+		%>
+		<div id="theErrorsDiv" style="color: red;">
+		<%
+		out.print(errors!=null?errors:"");
+		%>
+		</div>
 		<input type="submit" value="確定">
 	</form>
+
 </body>
 
 </html>

@@ -62,7 +62,7 @@ public class LoginServler extends HttpServlet {
 			try {
 				c = service.login(id, password);
 
-				// 3.1 內部轉交(forward)成功html
+				// 3.1 內部轉交(forward)成功 login_ok.jsp
 				request.setAttribute("member", c);
 				RequestDispatcher dispatcher = request.getRequestDispatcher("login_ok.jsp");
 				dispatcher.forward(request, response);
@@ -78,20 +78,11 @@ public class LoginServler extends HttpServlet {
 			}
 		}
 
-		// 3.2顯示失敗html
-		response.setContentType("text/html");
-		response.setCharacterEncoding("utf-8");
-		try (PrintWriter out = response.getWriter();) {
-			out.println("<!DOCTYPE html>");
-			out.println("<html>");
-			out.println("<head>");
-			out.println("<title>登入失敗</title>");
-			out.println("</head>");
-			out.println("<body>");
-			out.printf("  <h2>%s</h2>\n", errors);
-			out.println("</body>");
-			out.println("</html>");
-		}
+		// 3.2內部轉交(forward)失敗的login.jsp
+		request.setAttribute("errors", errors);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
+		dispatcher.forward(request, response);
+		return;
 
 	}
 

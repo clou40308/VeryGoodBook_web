@@ -6,13 +6,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>登入成功</title>
+    <title>註冊成功</title>
     <meta http-equiv="refresh" content="10;url=index.html">
 </head>
 
 <body>
     <h2>
-        <a href="index.html">NoteBook</a> <sub>登入成功</sub>
+        <a href="index.html">NoteBook</a> <sub>註冊成功</sub>
     </h2>
     <hr>
     <a href="login.jsp">登入</a> |
