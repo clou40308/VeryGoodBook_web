@@ -46,12 +46,12 @@
 	<body>
 		<table id="_99table">
 		<caption>99乘法表</caption>
-		<% for(int i=1; i<10 ;i++){ %>
-			<% for(int j=1; j<10 ;j++){ %>
+		<%  for(int i=1; i<10 ;i++){ %>
 			<tr>
-				<td><%= i %> * <%= j %> = <%= i * j %></td>
-			</tr>
+			<% for(int j=1; j<10 ;j++){ %>
+				<td><%= i %> * <%= j %> = <%= i * j %></td>	
 			<% } %>
+			</tr>
 		<% } %>
 		</table>
 	</body>

@@ -32,6 +32,7 @@
 		<a href="index.html">NoteBook</a> <sub>登入</sub>
 	</h2>
 	<hr>
+	<a href="products_list.jsp">買筆電</a>|
 	<a href="login.jsp">登入</a> |
 	<a href="register.jsp">註冊</a> |
 	<hr>
