@@ -2,7 +2,14 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300..400&display=swap');
 
-body{margin: 1ex;
-				font-family: "Noto Sans TC", sans-serif;  font-optical-sizing: auto; font-style: normal;			
-/* 				font-family: Arial, "文泉驛正黑", "WenQuanYi Zen Hei", "儷黑 Pro", "LiHei Pro", "微軟正黑體", "Microsoft JhengHei", "標楷體", DFKai-SB, sans-serif;  */
+body{			
+	margin: 1ex;
+	font-family: "Noto Sans TC", sans-serif;  font-optical-sizing: auto; font-style: normal;			
+ 	font-family: Arial, "文泉驛正黑", "WenQuanYi Zen Hei", "儷黑 Pro", "LiHei Pro", "微軟正黑體", "Microsoft JhengHei", "標楷體", DFKai-SB, sans-serif;  
+}
+section,footer{
+	text-align: center;
+}
+.welcomeSpan{
+	 color: chocolate;
 }

@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import uuu.vgb.entity.Customer;
 import uuu.vgb.exception.LoginFailedException;
@@ -20,7 +21,7 @@ import uuu.vgb.service.CustomerService;
 /**
  * Servlet implementation class LoginServler
  */
-@WebServlet("/login.do") // http://localhost:8080/vgb/login.do
+@WebServlet(urlPatterns = "/login.do") // http://localhost:8080/vgb/login.do
 public class LoginServler extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -40,6 +41,7 @@ public class LoginServler extends HttpServlet {
 			throws ServletException, IOException {
 		List<String> errors = new ArrayList<>();
 		// 1.讀取request中的form data :id,password,captcha
+		HttpSession session =request.getSession();
 		String id = request.getParameter("id");
 		String password = request.getParameter("password");
 		String captcha = request.getParameter("captcha");
@@ -63,7 +65,7 @@ public class LoginServler extends HttpServlet {
 				c = service.login(id, password);
 
 				// 3.1 內部轉交(forward)成功 login_ok.jsp
-				request.setAttribute("member", c);
+				session.setAttribute("member", c);
 				RequestDispatcher dispatcher = request.getRequestDispatcher("login_ok.jsp");
 				dispatcher.forward(request, response);
 				return;

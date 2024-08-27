@@ -29,7 +29,7 @@
 
 <body>
 	<h2>
-		<a href="index.html">NoteBook</a> <sub>登入</sub>
+		<a href="./">NoteBook</a> <sub>登入</sub>
 	</h2>
 	<hr>
 	<a href="products_list.jsp">買筆電</a>|
