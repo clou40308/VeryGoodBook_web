@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import uuu.vgb.entity.Customer;
 import uuu.vgb.exception.VGBDataInvalidException;
@@ -40,6 +41,7 @@ public class RegisterServlet extends HttpServlet {
 			throws ServletException, IOException {
 		List<String> errors = new ArrayList<>();
 		request.setCharacterEncoding("utf-8");
+		HttpSession session = request.getSession();
 		// TODO: 1.讀取request的form data:
 		// id,email,phone,password,name,birthday,gender,captcha
 		// address,subscribed
@@ -79,7 +81,13 @@ public class RegisterServlet extends HttpServlet {
 
 		if (captcha == null || (captcha = captcha.trim()).length() == 0) {
 			errors.add("必須輸入驗證碼");
+		}else {
+			String captchaString = (String)session.getAttribute("captchaString");
+			if(!captcha.equalsIgnoreCase(captchaString)) {
+				errors.add("驗證碼不正確");
+			}
 		}
+		session.removeAttribute("captchaString");
 
 		// TODO: 2.若無誤，呼叫商業邏輯
 		if (errors.isEmpty()) {

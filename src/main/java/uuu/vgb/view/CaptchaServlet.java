@@ -87,7 +87,7 @@ public class CaptchaServlet extends HttpServlet {
         //System.out.println("captcha:" + captcha);
 		
         HttpSession session = request.getSession();
-        session.setAttribute(this.getServletName(), captcha);
+        session.setAttribute("captchaString", captcha);
 		
 		
         //繪製圖片(Draw image)		

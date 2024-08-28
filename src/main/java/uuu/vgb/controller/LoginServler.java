@@ -21,7 +21,7 @@ import uuu.vgb.service.CustomerService;
 /**
  * Servlet implementation class LoginServler
  */
-@WebServlet(urlPatterns = "/login.do") // http://localhost:8080/vgb/login.do
+@WebServlet(urlPatterns="/login.do",loadOnStartup=1) // http://localhost:8080/vgb/login.do
 public class LoginServler extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -55,9 +55,15 @@ public class LoginServler extends HttpServlet {
 		}
 		if (captcha == null || (captcha = captcha.trim()).length() == 0) {
 			errors.add("必須輸入驗證碼");
+		}else {
+			String captchaString = (String)session.getAttribute("captchaString");
+			if(!captcha.equalsIgnoreCase(captchaString)) {
+				errors.add("驗證碼不正確");
+			}
 		}
+		session.removeAttribute("captchaString");
 
-		// 2.呼叫商業邏輯: CustomerService.login
+		// 2.檢查無誤，呼叫商業邏輯: CustomerService.login
 		if (errors.isEmpty()) {
 			CustomerService service = new CustomerService();
 			Customer c;
