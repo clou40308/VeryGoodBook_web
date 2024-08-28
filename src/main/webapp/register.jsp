@@ -18,13 +18,12 @@
 </head>
 
 <body>
-	<h2>
-		<a href="./">NoteBook</a> <sub>註冊</sub>
-	</h2>
-	<hr>
-	<a href="login.jsp">登入</a> |
-	<a href="register.jsp">註冊</a> |
-	<hr>
+	<%request.setCharacterEncoding("UTF-8"); %>
+	<jsp:include page="./subviews/header.jsp">
+	  <jsp:param value="註冊" name="subheader" />
+	</jsp:include>
+	<%@include file="./subviews/nav.jsp" %>
+
 	<form action="register.do" method="post">
 		<p>
 			<label for="id">帳號:</label>
@@ -91,7 +90,7 @@
 		</div>
 		<input type="submit" value="確定">
 	</form>
-
+		<%@include file="./subviews/footer.jsp" %>
 </body>
 
 </html>

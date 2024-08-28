@@ -39,25 +39,11 @@
 </head>
 
 <body>
-    <header>
-        <h2>
-            <a href="./">NoteBook</a> <sub>產品清單</sub>
-        </h2>
-        <form action="products_list.jsp" method="get" >
-            <input type="search" name="keyword" required placeholder="請輸入關鍵字">
-            <section name=category>
-                <option value=""></option>
-            </section>
-            <input type="submit"  value="查詢">
-        </form>
-        <hr>
-    </header>
-    <nav>
-        <a href="?">買筆電</a>|
-        <a href="login.jsp">登入</a> |
-        <a href="register.jsp">註冊</a> |
-        <hr>
-    </nav>
+	<%//request.setCharacterEncoding("UTF-8"); %>
+	<jsp:include page="./subviews/header.jsp">
+	  <jsp:param value="產品清單" name="subheader" />
+	</jsp:include>
+	<%@include file="./subviews/nav.jsp" %>
     <article> 
         <section>
             <a href="?latest=">新品</a>
@@ -98,10 +84,7 @@
         </div>
         <%} %>
     </article>
-    <footer>
-            <hr>
-                <h3>NoteBook&copy;2024-08~<%=LocalDate.now().getYear()%>-<%=LocalDate.now().getMonthValue()%></h3>
-    </footer>
+	<%@include file="./subviews/footer.jsp" %>
 </body>
 
 </html>

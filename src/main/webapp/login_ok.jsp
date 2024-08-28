@@ -26,7 +26,7 @@
         %>
         <%=member!=null?member.getName():""%>，您好!10秒後自動轉址至<a href="./">首頁</a>
     </p>
-
+	<%@include file="./subviews/footer.jsp" %>
     <!-- <script>
         document.write(new Date());
     </script> -->

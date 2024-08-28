@@ -6,7 +6,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Insert title here</title>
+		<title>Implicit Variables 隱含變數(request,session)</title>
 		<script>
 
 		</script>
@@ -74,6 +74,9 @@
 		<hr>
 		<h3>session(邏輯的連線)</h3>
 		<p>session id<%= session.getId() %></p>
+		<p>session.getMaxInactiveInterval():<%= session.getMaxInactiveInterval()%>秒</p>
+		<p>session.getCreationTime():<%= new java.util.Date(session.getCreationTime())%></p>
+		<p>session.getLastAccessedTime()<%= new java.util.Date(session.getLastAccessedTime())%></p>
 	</body>
 
 	</html>

@@ -28,14 +28,12 @@
 </head>
 
 <body>
-	<h2>
-		<a href="./">NoteBook</a> <sub>登入</sub>
-	</h2>
-	<hr>
-	<a href="products_list.jsp">買筆電</a>|
-	<a href="login.jsp">登入</a> |
-	<a href="register.jsp">註冊</a> |
-	<hr>
+	<%request.setCharacterEncoding("UTF-8"); %>
+	<jsp:include page="./subviews/header.jsp">
+	  <jsp:param value="登入" name="subheader" />
+	</jsp:include>
+	<%@include file="./subviews/nav.jsp" %>
+
 	<%
 		List<String> errors = (List<String>)request.getAttribute("errors");
 	%>
@@ -61,6 +59,7 @@
 		</p>
 		<input type="submit" value="確定">
 	</form>
+	<%@include file="./subviews/footer.jsp" %>
 </body>
 
 </html>
