@@ -54,13 +54,20 @@
             <a href="?">全部</a>
         </section>
         <%
-            //1.取得requser的Form Data
+            //1.取得requser的Form Data/QueryString
             String keyword = request.getParameter("keyword");
+       		String latest = request.getParameter("latest");
+        	String category = request.getParameter("category");
+        	
             //2.呼叫商業邏輯
             ProductService pService = new ProductService();
             List<Product> list= null;
             if(keyword != null && (keyword=keyword.trim()).length()>0) {
                 list = pService .getAllProductsByKeyword(keyword);
+            }else if(latest != null && (latest=latest.trim()).length()>0){
+                	list = pService .getLatestProducts();
+            }else if(category != null && (category=category.trim()).length()>0){
+            	list = pService .getProductsByCategory(category);
             }else{
                 list = pService .getAllProducts();
             }
@@ -76,8 +83,9 @@
                 Product p = list.get(i);
             %>
             <div class="productItem">
-                <img src="<%=p.getPhotoUrl()%>">
-                <h4><%=p.getName()%></h4>
+                <a href="products_detail.jsp?priductId=<%=p.getId() %>"><img src="<%=p.getPhotoUrl()%>"></a> <!--TODO: ajax+json-->
+                <a href="products_detail.jsp?priductId=<%=p.getId() %>"><h4><%=p.getName()%></h4></a> <!--同步GET請求-->
+              
                 <div>優惠價:<%= p instanceof SpecialOffer?((SpecialOffer)p).getDiscountString():"" %><%=p.getUnitPrice()%>元</div>
             </div>
             <% } %>
