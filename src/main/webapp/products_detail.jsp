@@ -68,10 +68,10 @@
 					<div id="product-detail-discount">優惠價: <%=p instanceof SpecialOffer ?((SpecialOffer)p).getDiscountString() :"" %> <%=p.getUnitPrice() %></div>
 					<div id="product-detail-stock">庫存: <%=p.getStock() %></div>
 					<form action="">
-						<input type="hidden" name="priductId" value="1">
+						<input type="hidden" name="priductId" value="<%= p.getId() %>">
 						<div>
 							<label>數量:</label>
-							<input type="number" name="quantity" required min="1" max="3">
+							<input type="number" name="quantity" required min="1" max="<%= p.getStock() %>">
 						</div>
 						<div>
 							<input type="submit" value="加入購物車">
