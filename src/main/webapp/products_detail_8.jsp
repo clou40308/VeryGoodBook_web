@@ -1,3 +1,4 @@
+<%@page import="uuu.vgb.entity.Cpu"%>
 <%@page import="uuu.vgb.entity.SpecialOffer"%>
 <%@page import="uuu.vgb.service.ProductService"%>
 <%@page import="java.security.spec.PSSParameterSpec"%>
@@ -17,6 +18,9 @@
 		
 		function init(){
 			$(".cpuDiv span").on("click", changeCpuData);
+			$("select[name=size]").on("change", changeSpanCPUData);
+			$("input[name=cpu]:first").attr("checked", true);
+			$(".spanCPU:first" ).trigger("click");
 		}
 		
 		function changeCpuData(){
@@ -34,6 +38,15 @@
 			$("#theCpuStock").text( $(this).attr("data-stock"));
 			$("input[name=quantity]").attr("max",  $(this).attr("data-stock"));
 			
+		}
+		function changeSpanCPUData(){
+			 //alert("changeSpanCPUData :"+$("select[name=size] option:selected").attr("data-stock"));
+			 var stock = $("select[name=size] option:selected").attr("data-stock");
+			 var listPrice = $("select[name=size] option:selected").attr("data-list-price");
+			 var price = $("select[name=size] option:selected").attr("data-price");
+			 console.log(stock,listPrice,price);
+			 
+			//TODO:修改畫面中指定位置的資料
 		}
 		</script>
 		<style>
@@ -75,7 +88,7 @@
 		</jsp:include>
 		<article>
 			<%
-				String priductId = "6"; //request.getParameter("priductId");
+				String priductId = request.getParameter("priductId");
 				Product p = null;
 				ProductService pService = new ProductService();
 				if(priductId != null && (priductId=priductId.trim()).length()>0){
@@ -98,19 +111,33 @@
 					<div id="product-detail-stock">庫存:<span id="theCpuStock"> <%=p.getStock() %></span></div>
 					<form action="">
 						<input type="hidden" name="priductId" value="6">
+						<% if(p.getCpuList() !=null && p.getCpuList().size() >0){%>
 						<div class="cpuDiv">
 							<label for="cpu">CPU:</label>
+							<% for(int i =0 ; i < p.getCpuList().size() ; i++ ){
+								Cpu cpu = p.getCpuList().get(i);
+							%>
 							<label>
-							<input type="radio" name="cpu" value="Ultra 9"  required>
-							<span title="Ultra 9" data-photo-src="https://img.pchome.com.tw/cs/items/DHAEGAA900HGCLW/000001_1725336198.jpg" 
-									data-release-date="2024-07-01" data-stock="10">Ultra 9</span>
-							</label>	
-							<label>
-							<input type="radio" name="cpu" value="Ultra 7"  required>
-							<span title="Ultra 7"  data-photo-src="https://img.pchome.com.tw/cs/items/DHAEGAA900HE4MS/000001_1725335836.jpg" 
-									data-release-date="2024-07-10" data-stock="21">Ultra 7</span>
+							<input type="radio" name="cpu" value="<%= cpu.getCpuName() %>9"  required>
+							<span 	class="spanCPU" title="<%= cpu.getCpuName() %>" 
+									data-photo-src="<%= cpu.getPhotoUrl() %>" 
+									data-release-date="<%= cpu.getReleaseDate()%>" 
+									data-stock="<%= cpu.getStock()%>" >
+									<%= cpu.getCpuName() %>
+							</span>
 							</label>
+							<% }%>
 						</div>
+						<%}%>
+						<div class="sizeDiv">
+							<label>尺寸:</label>
+							<select name="size" required>
+								<option value="">請選擇...</option>
+								<option value="14" data-stock="20" data-list-price ="33990" data-price="28888">14,20台</option>
+								<option value="16" data-stock="23" data-list-price ="33990" data-price="28888">16,23台</option>
+							</select>
+						</div>
+						
 						<div>
 							<label>數量:</label>
 							<input type="number" name="quantity" required min="1" max="<%= p.getStock() %>">

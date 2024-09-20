@@ -20,7 +20,7 @@
 </head>
 <body>
 	<jsp:include page="../subviews/header.jsp">
-	  <jsp:param value="404" name="subheader" />
+	  <jsp:param value="找不到檔案" name="subheader" />
 	</jsp:include>
 	<%@include file="../subviews/nav.jsp" %>
 	<article>
