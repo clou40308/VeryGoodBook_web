@@ -18,8 +18,9 @@
 		
 		function init(){
 			$(".cpuDiv span").on("click", changeCpuData);
-			$("input[name=cpu]:first").attr("checked", true);
-			$(".spanCPU:first" ).trigger("click");
+			$("select[name=size]").on("change", changeSpanCPUData);
+			//$("input[name=cpu]:first").attr("checked", true);
+			//$(".spanCPU:first" ).trigger("click");
 		}
 		
 		function changeCpuData(){
@@ -31,12 +32,44 @@
 			var releaseDate = $(this).attr("data-release-date");
 			var stock = $(this).attr("data-stock");
 			
-			//修改畫面中指定位置的資料			
+			//修改畫面中指定位置的資料				
 			$("#thePhoto").attr("src", photoUrl);
 			$("#theReleaseDate").text(releaseDate);
 			$("#theCpuStock").text( ", " + cpuName + ": "+ stock + "台");
 			$("input[name=quantity]").attr("max", stock);
+			//$(".specSelect").hide();
+			//$("#spec"+$(this).attr("title")).show();
+			ajaxGetSpecsOption(cpuName);
+		}
+
+		function ajaxGetSpecsOption(cpuName){
+			//Ajax請求->get_size_specs.jsp
+			var productId = $("input[name=productId]").val();
 			
+			$.ajax({
+				url:"get_cpu_size.jsp?cpuName=" +cpuName + "&productId="+productId,
+				method:"GET"
+			}).done(ajaxGetSpecsOptionDone);
+		}
+
+		function ajaxGetSpecsOptionDone(result,status,xhr){
+			//alert(result);
+			
+			//將選項套用在$("select[name=spec]")，顯示spec選單
+			$("select[name=size]").html(result);
+		}
+
+		function changeSpanCPUData(){
+			 //alert("changeSpanCPUData :"+$("select[name=size] option:selected").attr("data-stock"));
+			 var stock = $("select[name=size] option:selected").attr("data-stock");
+			 var listPrice = $("select[name=size] option:selected").attr("data-list-price");
+			 var price = $("select[name=size] option:selected").attr("data-price");
+			 console.log(stock,listPrice,price);
+			 
+			//TODO: 修改畫面中指定位置的資料	
+			$("input[name=quantity]").attr("max",  stock);
+			$("#theListPrice").text(listPrice);
+			$("#thePrice").text(price);	
 		}
 		</script>
 		<style>
@@ -74,19 +107,19 @@
 
 	<body>
 		<jsp:include page="./subviews/header.jsp">
-			<jsp:param value="產品明細" name="subheader" />
+			<jsp:param value="產品說明" name="subheader" />
 		</jsp:include>
 		<article>
 			<%
-				String priductId = request.getParameter("priductId");
+				String productId = request.getParameter("productId");
 				Product p = null;
 				ProductService pService = new ProductService();
-				if(priductId != null && (priductId=priductId.trim()).length()>0){
-					p =  pService.getProductById(priductId);
+				if(productId != null && (productId=productId.trim()).length()>0){
+					p =  pService.getProductById(productId);
 				}
 			%>
 			<% if( p == null){ %>
-					<h3>查無此代號的產品(<%=priductId %>)</h3>
+					<h3>查無此代號的產品(<%=productId %>)</h3>
 			<% }else{ %>
 			<div id="product-detail-area">
 				<img class="product-detail-img " id="thePhoto" src="<%=p.getPhotoUrl() %>"
@@ -95,12 +128,12 @@
 					<h3 id="product-detail-name"><%=p.getName() %></h3>
 					<div id="product-detail-releasedate">上架日期:<span id="theReleaseDate"><%=p.getReleaseDate() %></span></div>
 					<% if(p instanceof SpecialOffer){ %>
-					<div id="product-detail-unitprice">定價:<%=((SpecialOffer)p).getUnitPrice() %></div>
+					<div id="product-detail-unitprice">定價:<span id="theListPrice"><%= ((SpecialOffer)p).getListPrice() %></span>元</div>
 					<% } %>
-					<div id="product-detail-discount">優惠價: <%=p instanceof SpecialOffer ?((SpecialOffer)p).getDiscountString() :"" %> <%=p.getUnitPrice() %></div>
+					<div id="product-detail-discount">優惠價: <%=p instanceof SpecialOffer ?((SpecialOffer)p).getDiscountString() :"" %> <span id="thePrice"><%= p.getUnitPrice() %></span> 元</div>
 					<div id="product-detail-stock">庫存:共<%=p.getStock() %>台 <span id="theCpuStock"></span></div>
 					<form action="">
-						<input type="hidden" name="priductId" value="6">
+						<input type="hidden" name="productId" value="<%= p.getId() %>">
 						<% if(p.getCpuList() !=null && p.getCpuList().size() >0){%>
 						<div class="cpuDiv">
 							<label for="cpu">CPU:</label>
@@ -108,8 +141,8 @@
 								Cpu cpu = p.getCpuList().get(i);
 							%>
 							<label>
-							<input type="radio" name="cpu" value="<%= cpu.getCpuName() %>9"  required>
-							<span class="spanCPU"	title="<%= cpu.getCpuName() %>" 
+							<input type="radio" name="cpu" value="<%= cpu.getCpuName() %>"  required>
+							<span 	class="spanCPU" title="<%= cpu.getCpuName() %>" 
 									data-photo-src="<%= cpu.getPhotoUrl() %>" 
 									data-release-date="<%= cpu.getReleaseDate()%>" 
 									data-stock="<%= cpu.getStock()%>" >
@@ -119,6 +152,13 @@
 							<% }%>
 						</div>
 						<%}%>
+						<div class="sizeDiv">
+							<label>尺寸:</label>
+							<select name="size"  class="sizeSelect" required>
+								<option value="">請先選擇CPU</option>
+							</select>
+						</div>
+						
 						<div>
 							<label>數量:</label>
 							<input type="number" name="quantity" required min="1" max="<%= p.getStock() %>">

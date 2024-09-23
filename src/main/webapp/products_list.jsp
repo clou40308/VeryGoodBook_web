@@ -83,8 +83,8 @@
                 Product p = list.get(i);
             %>
             <div class="productItem">
-                <a href="products_detail.jsp?priductId=<%=p.getId() %>"><img src="<%=p.getPhotoUrl()%>"></a> <!--TODO: ajax+json-->
-                <a href="products_detail.jsp?priductId=<%=p.getId() %>"><h4><%=p.getName()%></h4></a> <!--同步GET請求-->
+                <a href="products_detail.jsp?productId=<%=p.getId() %>"><img src="<%=p.getPhotoUrl()%>"></a> <!--TODO: ajax+json-->
+                <a href="products_detail.jsp?productId=<%=p.getId() %>"><h4><%=p.getName()%></h4></a> <!--同步GET請求-->
               
                 <div>優惠價:<%= p instanceof SpecialOffer?((SpecialOffer)p).getDiscountString():"" %><%=p.getUnitPrice()%>元</div>
             </div>

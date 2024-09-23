@@ -1,6 +1,8 @@
 package uuu.vgb.controller;
 
 import java.io.IOException;
+
+import javax.servlet.DispatcherType;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -13,7 +15,7 @@ import javax.servlet.http.HttpFilter;
 /**
  * Servlet Filter implementation class CharSetFilter
  */
-@WebFilter({ "*.jsp", "*.do" })
+@WebFilter(urlPatterns = { "*.jsp", "*.do" } , dispatcherTypes = {DispatcherType.REQUEST,DispatcherType.ERROR})
 public class CharSetFilter extends HttpFilter implements Filter {
        
     /**
