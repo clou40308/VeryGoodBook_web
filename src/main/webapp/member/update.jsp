@@ -16,6 +16,7 @@
 		function init(){
 			//alert("init");
 			<% if(request.getMethod().equals("POST")){%>
+			//修改失敗要呼叫[repopulateFormData()];
 			  repopulateFormData();
 			
 		}
@@ -32,7 +33,20 @@
 			$("input[name=gender][value=<%=request.getParameter("gender")%>]").prop('checked',true);
 			$("input[name=subscribed]").prop('checked',<%=request.getParameter("subscribed")!=null%>);
 			
-			<% } %>
+			<% }else{ %>
+			//進入修改時帶入會員資料
+			
+			$("input[name=id]").val('${sessionScope.member.getId()}');
+			$("input[name=email]").val('${sessionScope.member.getEmail()}');
+			$("input[name=phone]").val('${sessionScope.member.getPhone()}');
+			$("input[name=password]").val('${sessionScope.member.getPassword()}');
+			$("input[name=name]").val('${sessionScope.member.getName()}');
+			$("input[name=birthday]").val('${sessionScope.member.getBirthday()}');
+			$("textarea[name=address]").text('${sessionScope.member.getAddress()}');
+			
+			$("input[name=gender][value=${sessionScope.member.getGender()}]").prop('checked',true);
+			$("input[name=subscribed]").prop('checked',${sessionScope.member.isSubscribed()});
+			<%}%>
 		}
 
 		function refreshCaptcha() {
@@ -44,11 +58,11 @@
 </head>
 
 <body>
-	<jsp:include page="./subviews/header.jsp">
+	<jsp:include page="../subviews/header.jsp">
 	  <jsp:param value="註冊" name="subheader" />
 	</jsp:include>
-	<%@include file="./subviews/nav.jsp" %>
-	<form action="register.do" method="post">
+	<%@include file="../subviews/nav.jsp" %>
+	<form action="update.do" method="post">
 		<p>
 			<label for="id">帳號:</label>
 			<input type="text" name="id" id="id" required placeholder="請輸入ROC ID" pattern="[A-Z][1289][0-9]{8}">
@@ -62,10 +76,15 @@
 			<input type="tel" name="phone" id="phone" placeholder="請輸入手機號碼">
 		</p>
 		<p>
-			<label for="password">密碼:</label>
+			<label for="password">原密碼:</label>
 			<input type="password" name="password" id="password" required placeholder="請輸入密碼" minlength="6" maxlength="20">
 			<input type="checkbox"><label>顯示密碼</label>
 		</p>
+		<fieldset>
+			<legend><input type="checkbox">要修改密碼</legend>
+			<label for="newPassword">新密碼:</label>
+			<input type="password" name="newPassword" id="newPassword" required placeholder="請輸入密碼" minlength="6" maxlength="20">
+		</fieldset>
 		<!-- <p>
 			<label>確認密碼:</label>
 			<input type="password" name="checkedPassword" required placeholder="請再次輸入確認密碼" minlength="6" maxlength="20">
@@ -102,7 +121,7 @@
 		<p>
 			<label for="captcha">驗證碼:</label>
 			<input type="text" name="captcha" id="captcha"  required placeholder="請輸入驗證碼">
-			<img src="images/captcha.png" alt="" title="點選即可更新驗證碼" id="captchaImg" onclick="refreshCaptcha()">
+			<img src="../images/captcha.png" alt="" title="點選即可更新驗證碼" id="captchaImg" onclick="refreshCaptcha()">
 		</p>
 		<%
 		List<String> errors = (List<String>)request.getAttribute("errors");
@@ -114,7 +133,7 @@
 		</div>
 		<input type="submit" value="確定">
 	</form>
-		<%@include file="./subviews/footer.jsp" %>
+		<%@include file="../subviews/footer.jsp" %>
 </body>
 
 </html>

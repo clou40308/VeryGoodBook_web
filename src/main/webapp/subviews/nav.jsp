@@ -5,13 +5,13 @@
     <%
         Customer member = (Customer)session.getAttribute("member");  
      %>
-	<a href="products_list.jsp">買筆電</a>|
+	<a href="<%=request.getContextPath() %>/products_list.jsp">買筆電</a>|
 	<% if(member==null){ //尚未登入%>
-	<a href="/vgb/login.jsp">登入</a> |
-	<a href="register.jsp">註冊</a> |
+	<a href="<%=request.getContextPath() %>/login.jsp">登入</a> |
+	<a href="<%=request.getContextPath() %>/register.jsp">註冊</a> |
 	<%}else{ //已經登入  %>
-	<a href="/vgb/logout.do">登出</a> |
-	<a href="#">修改會員</a> |
+	<a href="<%=request.getContextPath() %>/logout.do">登出</a> |
+	<a href="<%=request.getContextPath() %>/member/update.jsp">修改會員</a> |
 	<%} %>
 	<span class="welcomeSpan"><%=member!=null?member.getName():""%>您好!</span>
 	<hr>
