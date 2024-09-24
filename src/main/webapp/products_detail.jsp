@@ -152,12 +152,15 @@
 							<% }%>
 						</div>
 						<%}%>
+						<!-- 判斷有無規格資料 -->
+						<% if( p.getSizeCount()>0 ){ %>
 						<div class="sizeDiv">
 							<label>尺寸:</label>
 							<select name="size"  class="sizeSelect" required>
 								<option value="">請先選擇CPU</option>
 							</select>
 						</div>
+						<%}%>
 						
 						<div>
 							<label>數量:</label>
@@ -173,6 +176,13 @@
 				<hr>
 				<p><%=p.getDescription() %></p>
 			</div>
+			<script>		
+				<% if( p.getCpuList().size() == 0 && p.getSizeCount()>0 ){ %>
+					alert("應帶入尺寸資料");
+					ajaxGetSpecsOption("");
+				<% } %>
+			</script>
+			
 			<% } %>
 		</article>
 		<%@include file="./subviews/footer.jsp" %>
