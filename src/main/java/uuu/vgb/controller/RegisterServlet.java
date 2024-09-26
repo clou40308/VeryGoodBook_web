@@ -42,7 +42,7 @@ public class RegisterServlet extends HttpServlet {
 		List<String> errors = new ArrayList<>();
 		request.setCharacterEncoding("utf-8");
 		HttpSession session = request.getSession();
-		// TODO: 1.讀取request的form data:
+		// 1.讀取request的form data:
 		// id,email,phone,password,name,birthday,gender,captcha
 		// address,subscribed
 		String id = request.getParameter("id");
@@ -118,7 +118,7 @@ public class RegisterServlet extends HttpServlet {
 				errors.add(e.getMessage() + ",請聯絡Admin"); // for users
 			} catch (Exception e) { // RuntimeException
 				errors.add("系統發生錯誤:" + e.getMessage() + ",請聯絡Admin"); // for users
-				this.log("會員登入時，系統發生錯誤", e); // for admin
+				this.log("會員註冊，系統發生錯誤", e); // for admin
 			}
 		}
 

@@ -132,7 +132,7 @@
 					<% } %>
 					<div id="product-detail-discount">優惠價: <%=p instanceof SpecialOffer ?((SpecialOffer)p).getDiscountString() :"" %> <span id="thePrice"><%= p.getUnitPrice() %></span> 元</div>
 					<div id="product-detail-stock">庫存:共<%=p.getStock() %>台 <span id="theCpuStock"></span></div>
-					<form action="">
+					<form action="member/cart.jsp">
 						<input type="hidden" name="productId" value="<%= p.getId() %>">
 						<% if(p.getCpuList() !=null && p.getCpuList().size() >0){%>
 						<div class="cpuDiv">
@@ -178,7 +178,7 @@
 			</div>
 			<script>		
 				<% if( p.getCpuList().size() == 0 && p.getSizeCount()>0 ){ %>
-					alert("應帶入尺寸資料");
+					//alert("應帶入尺寸資料");
 					ajaxGetSpecsOption("");
 				<% } %>
 			</script>

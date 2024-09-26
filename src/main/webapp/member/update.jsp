@@ -6,7 +6,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>註冊</title>
+	<title>修改會員</title>
 	<link rel="stylesheet" href="style/vgb.css"  type="text/css">
 	<script src="https://code.jquery.com/jquery-3.0.0.js" integrity="sha256-jrPLZ+8vDxt2FnE1zvZXCkCcebI/C8Dt5xyaQBjxQIo=" crossorigin="anonymous"></script>
 	<script>
@@ -59,9 +59,10 @@
 
 <body>
 	<jsp:include page="../subviews/header.jsp">
-	  <jsp:param value="註冊" name="subheader" />
+	  <jsp:param value="修改會員" name="subheader" />
 	</jsp:include>
 	<%@include file="../subviews/nav.jsp" %>
+	
 	<form action="update.do" method="post">
 		<p>
 			<label for="id">帳號:</label>
@@ -83,7 +84,7 @@
 		<fieldset>
 			<legend><input type="checkbox">要修改密碼</legend>
 			<label for="newPassword">新密碼:</label>
-			<input type="password" name="newPassword" id="newPassword" required placeholder="請輸入密碼" minlength="6" maxlength="20">
+			<input type="password" name="newPassword" id="newPassword"  placeholder="請輸入密碼" minlength="6" maxlength="20">
 		</fieldset>
 		<!-- <p>
 			<label>確認密碼:</label>
@@ -133,6 +134,7 @@
 		</div>
 		<input type="submit" value="確定">
 	</form>
+	
 		<%@include file="../subviews/footer.jsp" %>
 </body>
 
