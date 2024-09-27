@@ -74,7 +74,7 @@ public class AddToCartServlet extends HttpServlet {
 			errors.add("加入cart失敗，productId不得為null");
 		}
 		
-		this.log("加入cart發生錯誤:"+errors);
+		if(errors.size()>0)this.log("加入cart 發生錯誤: "+errors);
 		//3.外部轉址到cart.jsp
 		response.sendRedirect("member/cart.jsp");
 	}

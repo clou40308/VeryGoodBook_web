@@ -109,6 +109,7 @@
 		<jsp:include page="./subviews/header.jsp">
 			<jsp:param value="產品說明" name="subheader" />
 		</jsp:include>
+		<%@include file="./subviews/nav.jsp" %>
 		<article>
 			<%
 				String productId = request.getParameter("productId");

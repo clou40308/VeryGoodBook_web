@@ -66,7 +66,33 @@
 	%>
 		<h2>購物車是空的</h2>
 	<%}else{ %>
-	<form action="update_cart.do" method="POST">
+		<form id="checkOutForm">
+		<p>
+			<label>貨運方式:</label>
+				<select name="shippingType" required>
+				<option value='SHOP'>門市</option>
+				<option value='HOME'>宅配</option>
+				<option value='STORE'>超商取貨</option>
+			</select>
+		</p>
+		<p>
+			<label>付款方式:</label>
+			<select name="paymentType" required>
+				<option value='SHOP'>門市付款</option>
+				<option value='ATM'>ATM轉帳</option>
+				<option value='HOME'>貨到付款</option>
+				<option value='STORE'>超商付款</option>
+				<option value='CARD'>信用卡</option>
+			</select>
+		</p>
+		<fieldset>
+			<legend>收件人</legend>
+			<label>姓名:</label><input name="name" placeholder="請輸入真實姓名"><br>
+			<label>手機:</label><input name="phone" placeholder="請輸入正確手機號碼"><br>
+			<label>Email:</label><input name="email" placeholder="請輸入正確Emial"><br>
+			<label>地址:</label><input name="shippingAddress"><br>
+		</fieldset>
+		</form>	
 		<table id="cartDetails">
 			<caption>購物明細</caption>
 			<thead>
@@ -107,13 +133,8 @@
 					<td colspan="1"><%= cart.getTotalQuantity() %>台</td>
 					<td colspan="2">總金額: <%= cart.getTotalAmount() %>元</td>
 				</tr>
-				<tr>
-					<td colspan="4"><input type="submit" value="修改購物車"></td>
-					<td colspan="2"><input type="button" value="我要結帳" onclick="location.href='check_out.jsp';"></td>
-				</tr>
 			</tfoot>
 		</table>
-	</form>
 	<%} %>
 	
 	</article>
