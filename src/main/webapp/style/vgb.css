@@ -13,3 +13,12 @@ section,footer{
 .welcomeSpan{
 	 color: chocolate;
 }
+
+.cartA{
+	float: right;
+}
+
+#cart-icon{
+	width: 30px;
+	height: 30px;
+}

@@ -132,7 +132,8 @@
 					<% } %>
 					<div id="product-detail-discount">優惠價: <%=p instanceof SpecialOffer ?((SpecialOffer)p).getDiscountString() :"" %> <span id="thePrice"><%= p.getUnitPrice() %></span> 元</div>
 					<div id="product-detail-stock">庫存:共<%=p.getStock() %>台 <span id="theCpuStock"></span></div>
-					<form action="member/cart.jsp">
+					
+					<form action="add_to_cart.do" method="POST" >
 						<input type="hidden" name="productId" value="<%= p.getId() %>">
 						<% if(p.getCpuList() !=null && p.getCpuList().size() >0){%>
 						<div class="cpuDiv">
@@ -170,6 +171,7 @@
 							<input type="submit" value="加入購物車">
 						</div>
 					</form>
+					
 				</div>
 			</div>
 			<div id="product-desc">

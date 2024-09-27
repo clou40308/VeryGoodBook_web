@@ -13,6 +13,9 @@
 	<a href="<%=request.getContextPath() %>/logout.do">登出</a> |
 	<a href="<%=request.getContextPath() %>/member/update.jsp">修改會員</a> |
 	<%} %>
+	<a class="cartA" href="<%=request.getContextPath() %>/member/cart.jsp">
+		<img id="cart-icon"  src="<%=request.getContextPath() %>/images/cart_icon.png" alt="">(8)
+	</a>
 	<span class="welcomeSpan"><%=member!=null?member.getName():""%>您好!</span>
 	<hr>
 </nav>

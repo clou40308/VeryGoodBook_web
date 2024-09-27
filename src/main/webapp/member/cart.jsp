@@ -1,3 +1,6 @@
+<%@page import="uuu.vgb.entity.CartItem"%>
+<%@page import="java.util.Set"%>
+<%@page import="uuu.vgb.entity.ShoppingCart"%>
 <%@page pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -55,7 +58,14 @@
 	</jsp:include>
 
 	<%@include file="/subviews/nav.jsp" %>
+	
 	<article>
+	<%
+		ShoppingCart cart = (ShoppingCart)session.getAttribute("cart");
+		if(cart == null|| cart.isEmpty()){
+	%>
+		<h2>購物車是空的</h2>
+	<%}else{ %>
 		<table id="cartDetails">
 			<caption>購物明細</caption>
 			<thead>
@@ -69,30 +79,39 @@
 				</tr>
 			</thead>
 			<tbody>
+				<%
+				    Set<CartItem> itemSet = cart.getCartItemsSet();
+					for(CartItem item : itemSet){
+				%>
 				<tr>
-					<td>1</td>
+					<td><%=item.getProductId()%></td>
 					<td>
-						<img style="width: 60px;"  src="https://img.pchome.com.tw/cs/items/DHAG7ZA900HO6E7/000001_1723721517.jpg" alt="">
-						HP 惠普_ Pavilion 文書效能筆電銀色(R5-8640U/16G/512G SSD/W11/bg0051AU) cpu 尺寸
+						<img style="width: 60px;"  src="<%=item.getPhotoUrl()%>" alt="">
+						<%=item.getProductName()%>
 					</td>
 					<td>
-						<span class="listPrice">45900</span>元 
-						 <div>9折</div>	
-						 <span id="price">45900</span>元
+						<span class="listPrice"><%=item.getListPrice()%></span>元 
+						 <div><%=item.getDiscountString()%></div>	
+						 <span id="price"><%=item.getPrice()%></span>元
 					</td>
-					<td>1</td>
-					<td>小計</td>
+					<td><%=cart.getQuantity(item)%></td>
+					<td><%=cart.getAmount(item)%></td>
 					<td>不</td>
 				</tr>
+				<%} %>
 			</tbody>
 			<tfoot>
 				<tr>
-					<td colspan="3">共1項</td>
-					<td colspan="1">1台</td>
-					<td colspan="2">總金額:1000元</td>
+					<td colspan="3">共<%= cart.size() %>項</td>
+					<td colspan="1"><%= cart.getTotalQuantity() %>台</td>
+					<td colspan="2">總金額: <%= cart.getTotalAmount() %>元</td>
 				</tr>
 			</tfoot>
+			
 		</table>
+		
+	<%} %>
+	
 	</article>
 	<%@include file="/subviews/footer.jsp" %>
 </body>
