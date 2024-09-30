@@ -62,7 +62,8 @@ public class LoginServler extends HttpServlet {
 			}
 		}
 		session.removeAttribute("captchaString");
-
+		String prevURI = (String)session.getAttribute("previous_url");
+		session.removeAttribute("previous_url");
 		// 2.檢查無誤，呼叫商業邏輯: CustomerService.login
 		if (errors.isEmpty()) {
 			CustomerService service = new CustomerService();
@@ -72,6 +73,7 @@ public class LoginServler extends HttpServlet {
 
 				// 3.1 內部轉交(forward)成功 login_ok.jsp
 				session.setAttribute("member", c);
+				if(prevURI!=null)request.setAttribute("previous_url", prevURI);
 //				session.setMaxInactiveInterval(15*60); //秒
 				RequestDispatcher dispatcher = request.getRequestDispatcher("login_ok.jsp");
 				dispatcher.forward(request, response);

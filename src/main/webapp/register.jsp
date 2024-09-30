@@ -21,9 +21,9 @@
 		}
 
 		function repopulateFormData(){
-			$("input[name=id]").val('<%=request.getParameter("id") %>');
-			$("input[name=email]").val('<%=request.getParameter("email") %>');
-			$("input[name=phone]").val('<%=request.getParameter("phone") %>');
+			$("input[name=id]").val('${param.id}');
+			$("input[name=email]").val('${param.email}');
+			$("input[name=phone]").val('${param.phone}');
 			$("input[name=password]").val('<%=request.getParameter("password") %>');
 			$("input[name=name]").val('<%=request.getParameter("name") %>');
 			$("input[name=birthday]").val('<%=request.getParameter("birthday") %>');

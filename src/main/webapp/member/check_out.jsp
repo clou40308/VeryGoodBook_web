@@ -10,8 +10,17 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>購物車</title>
 	<link rel="stylesheet" href="<%=request.getContextPath() %>/style/vgb.css"  type="text/css">
+	<script src="https://code.jquery.com/jquery-3.0.0.js" integrity="sha256-jrPLZ+8vDxt2FnE1zvZXCkCcebI/C8Dt5xyaQBjxQIo=" crossorigin="anonymous"></script>
 	<script>
+		$(document).ready(init);
 
+		function init(){
+			
+		}
+		function copyMemberData(){
+			//alert("123");
+			$("input[name=name]").val("${sessionScope.member.getName()}");
+		}
 	</script>
 	<style>
             #cartDetails {
@@ -86,7 +95,7 @@
 			</select>
 		</p>
 		<fieldset>
-			<legend>收件人</legend>
+			<legend>收件人 <input type="button" value="同訂購人" onclick="copyMemberData()"></legend>
 			<label>姓名:</label><input name="name" placeholder="請輸入真實姓名"><br>
 			<label>手機:</label><input name="phone" placeholder="請輸入正確手機號碼"><br>
 			<label>Email:</label><input name="email" placeholder="請輸入正確Emial"><br>

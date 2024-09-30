@@ -60,12 +60,14 @@
 	<%@include file="/subviews/nav.jsp" %>
 	
 	<article>
+	
 	<%
 		ShoppingCart cart = (ShoppingCart)session.getAttribute("cart");
-		if(cart == null|| cart.isEmpty()){
+		if(cart==null || cart.isEmpty()){
 	%>
 		<h2>購物車是空的</h2>
 	<%}else{ %>
+	<%if(cart.getMember() == null) cart.setMember(member); %>
 	<form action="update_cart.do" method="POST">
 		<table id="cartDetails">
 			<caption>購物明細</caption>

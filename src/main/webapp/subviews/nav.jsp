@@ -1,3 +1,4 @@
+<%@page import="uuu.vgb.entity.ShoppingCart"%>
 <%@page import="uuu.vgb.entity.Customer"%>
 <%@page pageEncoding="UTF-8" %>
 <!-- nav.jsp start -->
