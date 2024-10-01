@@ -142,7 +142,7 @@
 							<tr>
 								<td><%= item.getProductId() %></td>
 								<td>
-									<a href="../product_detail.jsp?productId=<%=item.getProductId() %>">
+									<a href="../products_detail.jsp?productId=<%=item.getProductId() %>">
 										<img style="width:40px;float:left;" src="<%= item.getPhotoUrl() %>">
 										<div class='productName'><%= item.getProductName() %></div>
 									</a>
