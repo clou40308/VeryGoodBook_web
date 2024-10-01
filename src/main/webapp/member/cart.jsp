@@ -107,7 +107,7 @@
 						</tr>
 						<tr>
 							<td colspan="4"><input type="submit" value="修改購物車"></td>
-							<td colspan="2"><input type="button" value="我要結帳" onclick="location.href='check_out.jsp';"></td>
+							<td colspan="2"><button value="checkOut" name="submit">我要結帳</button></td>
 						</tr>
 					</tfoot>
 				</table>

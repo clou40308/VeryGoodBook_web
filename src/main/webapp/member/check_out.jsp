@@ -1,3 +1,4 @@
+<%@page import="uuu.vgb.entity.PaymentType"%>
 <%@page import="uuu.vgb.entity.ShippingType"%>
 <%@page import="uuu.vgb.entity.CartItem"%>
 <%@page import="java.util.Set"%>
@@ -95,9 +96,11 @@
 							<label>貨運方式:</label>
 							<select name="shippingType" required onchange="calculateFee()">
 								<option value=''>請選擇...</option>
-								<% for(int i=0;i<ShippingType.values().length;i++) {%>
-								<option value='<%= ShippingType.values()[i].name()%>' data-fee="<%= ShippingType.values()[i].getFee()%>">
-									<%= ShippingType.values()[i]%>									
+								<% for(int i=0;i<ShippingType.values().length;i++) {
+									ShippingType shType = ShippingType.values()[i];
+								%>
+								<option value='<%= shType.name()%>' data-fee="<%= shType.getFee()%>">
+									<%= shType%>									
 								</option>
 								<% } %>
 							</select>
@@ -106,11 +109,11 @@
 							<label>付款方式:</label>
 							<select name="paymentType" required>
 								<option value=''>請選擇...</option>
-								<option value='SHOP'>門市付款</option>
-								<option value='ATM'>ATM轉帳</option>
-								<option value='HOME'>貨到付款, 80元</option>
-								<option value='STORE'>超商付款</option>
-								<option value='CARD'>信用卡</option>
+								<% for(PaymentType pType : PaymentType.values()) { %>
+								<option value='<%= pType.name()%>' data-fee="<%= pType.getFee()%>">
+									<%= pType%>									
+								</option>
+								<% } %>
 							</select>
 						</span>
 						<input type="submit" value="送出訂單" >
