@@ -13,26 +13,63 @@
 		<script src="https://code.jquery.com/jquery-3.0.0.js" 
 				integrity="sha256-jrPLZ+8vDxt2FnE1zvZXCkCcebI/C8Dt5xyaQBjxQIo=" crossorigin="anonymous"></script>		
 		<script>
-			function copyMemberData(){
-				//alert("copyMemberData");
-				
-				$("input[name=name]").val("${sessionScope.member.getName()}");
-				$("input[name=email]").val("${sessionScope.member.getEmail()}");
-				$("input[name=phone]").val("${sessionScope.member.getPhone()}");
-				$("input[name=shippingAddress]").val("${sessionScope.member.getAddress()}");
+		function copyMemberData(){
+			//alert("copyMemberData");
+			
+			$("input[name=name]").val("${sessionScope.member.getName()}");
+			$("input[name=email]").val("${sessionScope.member.getEmail()}");
+			$("input[name=phone]").val("${sessionScope.member.getPhone()}");
+			$("input[name=shippingAddress]").val("${sessionScope.member.getAddress()}");
+		}
+		
+		function changePaymentOption(){				
+			$("select[name=paymentType] option").prop("disabled", true);
+			$("select[name=paymentType] option[value='']").removeAttr("disabled");
+			
+			if($("select[name=shippingType] option:selected").val()!=''){
+				var array = $("select[name=shippingType] option:selected").attr("data-array").split(',');
+				for(i=0;i<array.length;i++){
+					$("select[name=paymentType] option[value='"+array[i]+"']").removeAttr("disabled");
+				}
 			}
 			
-			function calculateFee(){
-				alert("calculateFee");
-				var amount = Number($("#totalAmount").text());
-				var shippingFee=0;
-				if($("select[name=shippingType] option:selected").val()!=''){
-					shippingFee = Number($("select[name=shippingType] option:selected").attr("data-fee"));
-				}
-				alert(amount + shippingFee);
-				$("#totalAmountWithFee").text(amount + shippingFee);
-				
+			if($("select[name=paymentType] option:selected").prop("disabled")){
+				$("select[name=paymentType]").val("");
 			}
+			
+			changeShippingAddress($("select[name=shippingType]").val());
+			calculateFee();
+		}
+		
+		function changeShippingAddress(shippingType){
+			alert(shippingType);
+			//TODO:調整shippingAddress的輸入方式
+			switch(shippingType){
+			case 'SHOP':
+				alert('門市');break;
+			case 'HOME':
+				alert('宅配');break;
+			case 'STORE':
+				alert('超商');break;
+			case 'NO':
+				alert('無須貨運');
+			}
+		}
+		
+		function calculateFee(){
+			//alert("calculateFee");
+			var amount = Number($("#totalAmount").text());
+			var shippingFee=0;
+			var paymentFee=0;
+			if($("select[name=shippingType] option:selected").val()!=''){
+				shippingFee = Number($("select[name=shippingType] option:selected").attr("data-fee"));
+			}
+			if($("select[name=paymentType] option:selected").val()!=''){
+				paymentFee = Number($("select[name=paymentType] option:selected").attr("data-fee"));
+			}
+			//alert(amount+shippingFee+paymentFee);
+			$("#totalAmountWithFee").text(amount + shippingFee+paymentFee);				
+		}
 		</script>
 		
 		<style>
@@ -90,7 +127,7 @@
 			%>
 				<h2 class='h2Msg'>購物車是空的，無法結帳!請先至[賣場]選購!</h2>
 			<%} else{%>				
-				<form id="checkOutForm">
+				<form id="checkOutForm" action="check_out.do" method="POST">
 					<p>
 						<span id="shippingTypeSpan">
 							<label>貨運方式:</label>
